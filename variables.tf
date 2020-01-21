@@ -19,7 +19,7 @@ variable "map_roles" {
     {
       rolearn  = "arn:aws:iam::422074288268:role/eks-access"
       username = "rudder"
-      groups   = ["cluster-admin"]
+      groups   = ["system:masters"]
     },
   ]
 }

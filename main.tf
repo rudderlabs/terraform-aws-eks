@@ -49,8 +49,8 @@ module "vpc" {
   name                 = "rudder-vpc"
   cidr                 = var.vpc_cidr_block
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = []
-  public_subnets       = [cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 0)]
+  private_subnets      = [cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 3), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 4), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 5)]
+  public_subnets       = [cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 0), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 1), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 2)]
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
