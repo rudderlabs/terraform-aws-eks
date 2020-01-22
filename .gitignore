@@ -26,3 +26,4 @@ vendor
 
 # Mock user-data log file
 mock-user-data.log
+kubeconfig_*
