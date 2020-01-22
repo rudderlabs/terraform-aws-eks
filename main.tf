@@ -39,7 +39,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "rudder-eks"
+  cluster_name = var.cluster_name
 }
 
 module "vpc" {
@@ -91,6 +91,9 @@ module "eks" {
       instance_type = var.rudder_node_type
     }
   }
+
+  cluster_enabled_log_types     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  cluster_log_retention_in_days = 7
 
   map_roles    = var.map_roles
   map_users    = var.map_users
