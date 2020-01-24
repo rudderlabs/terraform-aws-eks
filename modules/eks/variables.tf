@@ -186,6 +186,12 @@ variable "kubeconfig_name" {
   default     = ""
 }
 
+variable "assume_role" {
+  description = "Assume role."
+  type        = string
+  default     = "arn:aws:iam::422074288268:role/eks-access"
+}
+
 variable "cluster_create_timeout" {
   description = "Timeout value when creating the EKS cluster."
   type        = string
