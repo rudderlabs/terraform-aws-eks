@@ -158,7 +158,12 @@ output "worker_autoscaling_policy_arn" {
   value       = concat(aws_iam_policy.worker_autoscaling[*].arn, [""])[0]
 }
 
-output "node_groups" {
+output "autoscaling_groups_names" {
   description = "Outputs from EKS node groups. Map of maps, keyed by var.node_groups keys"
-  value       = module.node_groups.node_groups
+  value       = module.node_groups.autoscaling_groups_names
+}
+
+output "autoscaling_group_scaling_configs" {
+  description = "Outputs from EKS node groups(scaling config). Map of maps, keyed by var.node_groups keys"
+  value       = module.node_groups.autoscaling_group_scaling_configs
 }

@@ -23,7 +23,12 @@ output "region" {
   value       = var.region
 }
 
-output "node_groups" {
-  description = "Outputs from node groups"
-  value       = module.eks.node_groups
+output "autoscaling_groups_names" {
+  description = "Auto scaling groups created to be used as worker node pools."
+  value       = module.eks.autoscaling_groups_names
+}
+
+output "autoscaling_group_scaling_configs" {
+  description = "Scaling config of auto scaling groups created."
+  value       = module.eks.autoscaling_group_scaling_configs
 }
