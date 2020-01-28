@@ -110,7 +110,6 @@ module "eks" {
 }
 
 data "template_file" "aws_yml" {
-  count    = true ? 1 : 0
   template = file("${path.module}/templates/aws.yml.tpl")
 
   vars = {
@@ -121,7 +120,6 @@ data "template_file" "aws_yml" {
 }
 
 resource "local_file" "aws_yml" {
-  count    = true ? 1 : 0
   content  = data.template_file.aws_yml[0].rendered
   filename = "aws.yml"
 }
