@@ -99,3 +99,20 @@ module "eks" {
   map_users    = var.map_users
   map_accounts = var.map_accounts
 }
+
+data "template_file" "aws_yml" {
+  count    = true ? 1 : 0
+  template = file("${path.module}/templates/aws.yml.tpl")
+
+  vars = {
+    aws_region   = var.region
+    vpc_id       = module.vpc.vpc_id
+    cluster_name = local.cluster_name
+  }
+}
+
+resource "local_file" "aws_yml" {
+  count    = true ? 1 : 0
+  content  = data.template_file.aws_yml[0].rendered
+  filename = "aws.yml"
+}

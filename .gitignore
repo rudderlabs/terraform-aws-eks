@@ -28,3 +28,4 @@ vendor
 mock-user-data.log
 kubeconfig_*
 rudder_kubeconfig_*
+aws.yml
