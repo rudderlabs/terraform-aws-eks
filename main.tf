@@ -49,8 +49,14 @@ module "vpc" {
   name                 = "rudder-vpc"
   cidr                 = var.vpc_cidr_block
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = [cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 3), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 4), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 5)]
-  public_subnets       = [cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 0), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 1), cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, 2)]
+  private_subnets      = [
+    for i in range(length(data.aws_availability_zones.available.names)):
+    cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, length(data.aws_availability_zones.available.names) + i)
+    ]
+  public_subnets       = [
+    for i in range(length(data.aws_availability_zones.available.names)):
+    cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, i)
+    ]
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
@@ -80,15 +86,18 @@ module "eks" {
   node_groups_defaults = {
     ami_type  = "AL2_x86_64"
     disk_size = var.rudder_disk_size_gb
+
+    desired_capacity = 1
+    max_capacity     = 10
+    min_capacity     = 1
+
+    instance_type = var.rudder_node_type
   }
 
   node_groups = {
-    rudder-default = {
-      desired_capacity = 1
-      max_capacity     = 10
-      min_capacity     = 1
-
-      instance_type = var.rudder_node_type
+    for i in range(length(data.aws_availability_zones.available.names)):
+    format("rudder-%s",element(data.aws_availability_zones.available.names,i)) => {
+      subnets = [element(module.vpc.public_subnets,i)]
     }
   }
 
