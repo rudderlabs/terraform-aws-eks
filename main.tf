@@ -120,6 +120,6 @@ data "template_file" "aws_yml" {
 }
 
 resource "local_file" "aws_yml" {
-  content  = data.template_file.aws_yml[0].rendered
+  content  = data.template_file.aws_yml.rendered
   filename = "aws.yml"
 }
