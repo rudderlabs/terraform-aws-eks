@@ -15,7 +15,7 @@ Please go through `variables.tf` for other config variables.
 ## How do you run?
 
 1. Install [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) v0.12.0 or later.
-1. Open `variables.tf`, and fill in any required variables that don't have a default. Checkout the default variables `rudder_node_type` and `rudder_disk_size_gb` for configuring the nodes.
+1. Open `variables.tf` and checkout the default values for the variables. You can change them if you wish. For example, to change your nodes configuration alter the default values for variables `rudder_node_type` and `rudder_disk_size_gb`.
 1. Run `terraform get`.
 1. Run `terraform plan`.
 1. If the plan looks good, run `terraform apply`. This will create all the needed resources on your AWS.
