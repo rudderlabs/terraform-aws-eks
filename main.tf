@@ -40,6 +40,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   cluster_name = var.cluster_name
+  azs_sliced		= slice(data.aws_availability_zones.available.names,0,var.rudder_num_availability_zones == -1 || var.rudder_num_availability_zones > length(data.aws_availability_zones.available.names) ? length(data.aws_availability_zones.available.names) : var.rudder_num_availability_zones)
 }
 
 module "vpc" {
@@ -48,13 +49,14 @@ module "vpc" {
 
   name                 = "rudder-vpc"
   cidr                 = var.vpc_cidr_block
-  azs                  = data.aws_availability_zones.available.names
+  azs                  = local.azs_sliced
+
   private_subnets      = [
-    for i in range(length(data.aws_availability_zones.available.names)):
-    cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, length(data.aws_availability_zones.available.names) + i)
+    for i in range(length(local.azs_sliced)):
+    cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, length(local.azs_sliced) + i)
     ]
   public_subnets       = [
-    for i in range(length(data.aws_availability_zones.available.names)):
+    for i in range(length(local.azs_sliced)):
     cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, i)
     ]
   enable_nat_gateway   = true
@@ -95,8 +97,8 @@ module "eks" {
   }
 
   node_groups = {
-    for i in range(length(data.aws_availability_zones.available.names)):
-    format("rudder-%s",element(data.aws_availability_zones.available.names,i)) => {
+    for i in range(length(local.azs_sliced)):
+    format("rudder-%s",element(local.azs_sliced,i)) => {
       subnets = [element(module.vpc.public_subnets,i)]
     }
   }
