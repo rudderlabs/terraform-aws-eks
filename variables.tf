@@ -103,3 +103,9 @@ variable "rudder_disk_size_gb" {
   type        = string
   default     = "30"
 }
+
+variable "rudder_num_availability_zones" {
+  description = "Number of availability zones to create the Rudder cluster. Set it to -1 to deploy in all AZs"
+  type        = number
+  default     = 2
+}
