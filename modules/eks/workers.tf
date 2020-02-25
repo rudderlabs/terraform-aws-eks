@@ -390,6 +390,31 @@ data "aws_iam_policy_document" "worker_autoscaling" {
   }
 
   statement {
+    effect = "Allow"
+
+    actions = [
+      "cloudwatch:PutMetricData",
+      "ec2:DescribeVolumes",
+      "ec2:DescribeTags",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams",
+      "logs:DescribeLogGroups",
+      "logs:CreateLogStream",
+      "logs:CreateLogGroup"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "ssm:GetParameter"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
     sid    = "eksWorkerAutoscalingOwn"
     effect = "Allow"
 
