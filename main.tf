@@ -57,7 +57,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 2.6"
 
-  name                 = "rudder-vpc"
+  name                 = "rudder-saas-vpc"
   cidr                 = var.vpc_cidr_block
   azs                  = local.azs_sliced
 
@@ -91,7 +91,7 @@ module "vpc" {
 module "eks" {
   source       = "./modules/eks"
   cluster_name = local.cluster_name
-  subnets      = module.vpc.public_subnets
+  subnets      = module.vpc.private_subnets
 
   vpc_id = module.vpc.vpc_id
 
@@ -109,7 +109,7 @@ module "eks" {
   node_groups = {
     for i in range(length(local.azs_sliced)):
     format("rudder-%s",element(local.azs_sliced,i)) => {
-      subnets = [element(module.vpc.public_subnets,i)]
+      subnets = [element(module.vpc.private_subnets,i)]
     }
   }
 
