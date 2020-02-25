@@ -95,7 +95,7 @@ variable "override_default_node_pool_service_account" {
 variable "rudder_node_type" {
   description = "Google compute engine instance type for worker nodes"
   type        = string
-  default     = "m5.large"
+  default     = "m5x.large"
 }
 
 variable "rudder_disk_size_gb" {
@@ -107,5 +107,5 @@ variable "rudder_disk_size_gb" {
 variable "rudder_num_availability_zones" {
   description = "Number of availability zones to create the Rudder cluster. Set it to -1 to deploy in all AZs"
   type        = number
-  default     = 2
+  default     = 1
 }
