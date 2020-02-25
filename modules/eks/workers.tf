@@ -576,4 +576,11 @@ data "aws_iam_policy_document" "worker_autoscaling" {
     ]
     resources = ["*"]
   }
+  statement {
+    effect = "Allow"
+    actions= [
+      "s3:*",
+    ]
+    resources = ["*"]
+  }
 }

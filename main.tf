@@ -11,9 +11,9 @@ terraform {
 }
 
 
-
 provider "aws" {
   version = ">= 2.28.1"
+  profile = "default"
   region  = var.region
 }
 
