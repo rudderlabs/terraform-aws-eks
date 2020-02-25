@@ -564,7 +564,16 @@ data "aws_iam_policy_document" "worker_autoscaling" {
     actions = [
       "waf:GetWebACL"
     ]
+    resources = ["*"]
+  }
 
+  statement {
+    effect = "Allow"
+    actions= [
+      "route53:ChangeResourceRecordSets",
+      "route53:ListHostedZones",
+      "route53:ListResourceRecordSets"
+    ]
     resources = ["*"]
   }
 }

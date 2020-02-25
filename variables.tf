@@ -42,6 +42,7 @@ variable "map_users" {
 variable "region" {
   description = "The region used for the vpc network and the eks cluster."
   type        = string
+  default     = "us-east-1"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -107,5 +108,5 @@ variable "rudder_disk_size_gb" {
 variable "rudder_num_availability_zones" {
   description = "Number of availability zones to create the Rudder cluster. Set it to -1 to deploy in all AZs"
   type        = number
-  default     = 1
+  default     = 3
 }

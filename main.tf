@@ -1,6 +1,16 @@
 terraform {
   required_version = ">= 0.12.6"
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "RudderLabs"
+
+    workspaces {
+      name = "prod-saas-eks"
+    }
+  }
 }
+
+
 
 provider "aws" {
   version = ">= 2.28.1"
