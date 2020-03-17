@@ -28,4 +28,6 @@ module "eks-cluster" {
       groups   = ["system:masters"]
     }
   ]
+  rudder_num_availability_zones = 2
+  rudder_node_type              = "c5.2xlarge"
 }
