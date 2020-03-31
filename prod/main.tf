@@ -19,13 +19,6 @@ provider "aws" {
 
 
 module "eks-cluster" {
-  source = "../eks-cluster"
-  # map_accounts = ["422074288268"]
-  # map_roles = [
-  #   {
-  #     rolearn  = "arn:aws:iam::422074288268:role/eks-access"
-  #     username = "rudder"
-  #     groups   = ["system:masters"]
-  #   }
-  # ]
+  source           = "../eks-cluster"
+  rudder_node_type = "c5.2xlarge"
 }
