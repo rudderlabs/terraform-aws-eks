@@ -51,7 +51,7 @@ module "vpc" {
     cidrsubnet(var.vpc_cidr_block, var.vpc_cidr_subnetwork_width_delta, i)
   ]
   enable_nat_gateway   = true
-  single_nat_gateway   = false
+  single_nat_gateway   = var.vpc_single_nat_gateway
   enable_dns_hostnames = true
 
   tags = {

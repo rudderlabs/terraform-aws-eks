@@ -98,3 +98,9 @@ variable "rudder_num_availability_zones" {
   type        = number
   default     = 3
 }
+
+variable "vpc_single_nat_gateway" {
+  description = "When true, vpc will have a single nat gateway. Make it false for high availability in case of AZ failure."
+  type        = bool
+  default     = true
+}
