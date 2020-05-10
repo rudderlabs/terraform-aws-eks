@@ -29,5 +29,5 @@ module "eks-cluster" {
     }
   ]
   rudder_num_availability_zones = 2
-  rudder_node_type              = "c5.2xlarge"
+  rudder_node_type              = "m5.2xlarge"
 }

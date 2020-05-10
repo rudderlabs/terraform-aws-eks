@@ -20,6 +20,6 @@ provider "aws" {
 
 module "eks-cluster" {
   source                 = "../eks-cluster"
-  rudder_node_type       = "c5.2xlarge"
+  rudder_node_type       = "m5.2xlarge"
   vpc_single_nat_gateway = false
 }
