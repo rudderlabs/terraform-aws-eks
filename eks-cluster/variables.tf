@@ -81,10 +81,9 @@ variable "override_default_node_pool_service_account" {
   default     = true
 }
 
-variable "rudder_node_type" {
-  description = "Google compute engine instance type for worker nodes"
-  type        = string
-  default     = "m5.xlarge"
+variable "rudder_node_type_list" {
+  description = "Node instance type for worker nodes. One entry per each node group"
+  type        = list(string)
 }
 
 variable "rudder_disk_size_gb" {

@@ -81,21 +81,21 @@ module "eks" {
     disk_size = var.rudder_disk_size_gb
 
     desired_capacity = 1
-    max_capacity     = 10
+    max_capacity     = 20
     min_capacity     = 1
 
-    instance_type = var.rudder_node_type
   }
 
   node_groups = {
     for i in range(length(local.azs_sliced)) :
     format("rudder-%s", element(local.azs_sliced, i)) => {
-      subnets = [element(module.vpc.private_subnets, i)]
+      subnets       = [element(module.vpc.private_subnets, i)]
+      instance_type = element(var.rudder_node_type_list, i)
     }
   }
 
   cluster_enabled_log_types     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-  cluster_log_retention_in_days = 7
+  cluster_log_retention_in_days = 400
 
   map_roles    = var.map_roles
   map_users    = var.map_users
