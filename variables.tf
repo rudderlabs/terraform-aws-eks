@@ -81,21 +81,10 @@ variable "vpc_cidr_subnetwork_width_delta" {
   default     = 4
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# TEST PARAMETERS
-# These parameters are only used during testing and should not be touched.
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "override_default_node_pool_service_account" {
-  description = "When true, this will use the service account that is created for use with the default node pool that comes with all GKE clusters"
-  type        = bool
-  default     = true
-}
-
 variable "rudder_node_type" {
-  description = "Google compute engine instance type for worker nodes"
+  description = "EC2 instance type for worker nodes"
   type        = string
-  default     = "m5x.large"
+  default     = "c5.2xlarge"
 }
 
 variable "rudder_disk_size_gb" {
