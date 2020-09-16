@@ -55,18 +55,6 @@ variable "cluster_name" {
   default     = "rudder-cluster"
 }
 
-variable "cluster_service_account_name" {
-  description = "The name of the custom service account used for the GKE cluster. This parameter is limited to a maximum of 28 characters."
-  type        = string
-  default     = "rudder-cluster-sa"
-}
-
-variable "cluster_service_account_description" {
-  description = "A description of the custom service account used for the GKE cluster."
-  type        = string
-  default     = "Rudder GKE Cluster Service Account managed by Terraform"
-}
-
 # For the example, we recommend a /16 network for the VPC. Note that when changing the size of the network,
 # you will have to adjust the 'cidr_subnetwork_width_delta' in the 'vpc_network' -module accordingly.
 variable "vpc_cidr_block" {
